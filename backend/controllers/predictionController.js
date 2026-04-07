@@ -17,7 +17,7 @@ exports.predictPrice = async (req, res) => {
 
   try {
     // Call Python ML Script
-    const pythonPath = '/usr/local/bin/python3'; 
+    const pythonPath = process.env.PYTHON_PATH || 'python3'; 
     const scriptPath = path.join(__dirname, '../ml/predict.py');
     
     const result = spawnSync(pythonPath, [scriptPath, url], { 
