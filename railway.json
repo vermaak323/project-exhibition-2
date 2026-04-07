@@ -6,5 +6,16 @@
   "deploy": {
     "startCommand": "node backend/index.js",
     "restartPolicyType": "ON_FAILURE"
+  },
+  "nixpacks": {
+    "providers": ["node", "python"],
+    "phases": {
+      "setup": {
+        "nixPkgs": ["nodejs", "python311", "gcc"]
+      },
+      "install": {
+        "cmds": ["npm install", "pip install -r backend/ml/requirements.txt"]
+      }
+    }
   }
 }
