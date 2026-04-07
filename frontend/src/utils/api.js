@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://10.51.58.96:5001/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://project-exhibition-2-production.up.railway.app/api',
   withCredentials: true,
 });
 
