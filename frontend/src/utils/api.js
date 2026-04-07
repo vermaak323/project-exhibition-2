@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://project-exhibition-2-production.up.railway.app/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://project-exhibition-2-production.up.railway.app/api/',
   withCredentials: true,
 });
 
@@ -14,12 +14,12 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const login = (email, password) => api.post('/auth/login', { email, password });
-export const signup = (name, email, password) => api.post('/auth/signup', { name, email, password });
-export const logout = () => api.post('/auth/logout');
-export const getMe = () => api.get('/auth/me');
+export const login = (email, password) => api.post('auth/login', { email, password });
+export const signup = (name, email, password) => api.post('auth/signup', { name, email, password });
+export const logout = () => api.post('auth/logout');
+export const getMe = () => api.get('auth/me');
 
-export const predictPrice = (url) => api.post('/prediction/predict', { url });
-export const getHistory = () => api.get('/users/history');
+export const predictPrice = (url) => api.post('prediction/predict', { url });
+export const getHistory = () => api.get('users/history');
 
 export default api;
