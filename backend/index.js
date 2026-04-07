@@ -19,7 +19,8 @@ app.use(cookieParser());
 // Appwrite initialization check (optional but good practice)
 console.log('✅ Integrated with Appwrite');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
+console.log(`🎯 Targeted Port: ${PORT}`);
 
 // Basic Route
 app.get('/', (req, res) => {
