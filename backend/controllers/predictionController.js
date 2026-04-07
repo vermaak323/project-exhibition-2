@@ -17,13 +17,22 @@ exports.predictPrice = async (req, res) => {
 
   try {
     // Call Python ML Script
-    const pythonPath = process.env.PYTHON_PATH || 'python3'; 
+    let pythonPath = process.env.PYTHON_PATH || 'python3'; 
     const scriptPath = path.join(__dirname, '../ml/predict.py');
     
-    const result = spawnSync(pythonPath, [scriptPath, url], { 
+    // Attempt with python3, fallback to python if not found
+    let result = spawnSync(pythonPath, [scriptPath, url], { 
         encoding: 'utf8',
         env: { ...process.env, SCRAPER_API_KEY: process.env.SCRAPER_API_KEY } 
     });
+
+    if (result.error && result.error.code === 'ENOENT' && !process.env.PYTHON_PATH) {
+        pythonPath = 'python';
+        result = spawnSync(pythonPath, [scriptPath, url], { 
+            encoding: 'utf8',
+            env: { ...process.env, SCRAPER_API_KEY: process.env.SCRAPER_API_KEY } 
+        });
+    }
     
     if (result.error) {
         throw new Error(`Failed to start prediction script: ${result.error.message}`);
